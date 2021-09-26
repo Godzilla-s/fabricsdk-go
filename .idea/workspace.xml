@@ -2,75 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1dba2ec6-4841-493b-b2f5-9fc0a2f275f8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/caclient/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/caclient/error.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/caclient/identity.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/caclient/keystore.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/caclient/param.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/channel_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/chaincode.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/channel.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/common.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/proposal.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/protoutil/chaincode.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/protoutil/channel.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/protoutil/common.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/protoutil/proposal.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/blockutil/block.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/blockutil/block/block.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/blockutil/config/block.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/cds.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/env.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/list.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/package.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/platform.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/util.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/platform.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/provider.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/scds.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/ccplatform/util.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/approve.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/chaincode.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/commit.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/contract/contract.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/contract/option.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/install.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/invoke.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/list.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/option.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/policy.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/policy/policydsl.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/chaincode/request.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/channel/channel.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/channel/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/channel/list.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/channel/update.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/channel/util.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/client/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/client/delivegroup/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/client/orderer/deliver.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/client/orderer/option.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/client/orderer/orderer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/client/peer/peer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/comm/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/comm/util.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/csr.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/ecdsa.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/hash.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/key.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/signer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/suite.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/util.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/rwsetutil/rw_util.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/rwsetutil/version.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/utils/blockutil.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/utils/common.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/utils/protoutil.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/utils/txutil.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/utils/unmarshal.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/utils/util.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
