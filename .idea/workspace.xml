@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1dba2ec6-4841-493b-b2f5-9fc0a2f275f8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/caclient/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/caclient/error.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/caclient/identity.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/caclient/keystore.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/caclient/param.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/channel_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/chaincode.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/channel.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/common.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/proposal.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/protoutil/chaincode.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/protoutil/channel.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/protoutil/common.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/protoutil/proposal.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/blockutil/block.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/blockutil/block/block.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/blockutil/config/block.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/cds.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/env.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/list.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/package.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/platform.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/golang/util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/platform.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/provider.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/scds.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/ccplatform/util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/approve.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/chaincode.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/commit.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/contract/contract.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/contract/option.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/install.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/invoke.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/list.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/option.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/policy.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/policy/policydsl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/chaincode/request.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/channel/channel.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/channel/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/channel/list.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/channel/update.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/channel/util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/client/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/client/delivegroup/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/client/orderer/deliver.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/client/orderer/option.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/client/orderer/orderer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/client/peer/peer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/comm/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/comm/util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/csr.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/ecdsa.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/hash.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/key.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/signer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/suite.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/cryptoutil/util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/rwsetutil/rw_util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/rwsetutil/version.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/utils/blockutil.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/utils/common.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/utils/protoutil.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/utils/txutil.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/utils/unmarshal.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/utils/util.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="C:\Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="kq1eu7o4" />
+  </component>
+  <component name="ProjectId" id="1ycSgJ2AyVIndHXB0OxmOyWXo8t" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../gitlab-ce.alauda.cn/middleware/mysql-mgr-operator" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\goproj\src\github.com\godzilla-s\fabricsdk-go\internal\client\orderer" />
+      <recent name="D:\goproj\src\github.com\godzilla-s\fabricsdk-go\internal" />
+      <recent name="D:\goproj\src\github.com\godzilla-s\fabricsdk-go" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <environment>
+      <map>
+        <entry key="GOPROXY" value="https://goproxy.cn" />
+      </map>
+    </environment>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="495" y="216" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1632556675071">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="495" y="216" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.834@0.0.1536.834" timestamp="1632556675071" />
+    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1632619240685">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1632619240685" />
+    <state x="262" y="61" key="SettingsEditor" timestamp="1632550968827">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="262" y="61" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1632550968827" />
+  </component>
+</project>

@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+import "common.proto";
+
+option go_package = "gateway/protoutil";
+
+package chaincode;
+
+message Chaincode {
+  string lang = 1;
+  oneof Package {
+    bytes source = 2;
+    string file = 3;
+    string git_repo = 4;
+    bytes pkg_bytes = 5;
+  }
+}
+
+message ChaincodePackage {
+  enum ChaincodeMode{
+    // 打好包缓存字节
+    FROM_PACKAGE_BYTES = 0;
+    // 打好包文件
+    FROM_PACKAGE_FILE=1;
+    // 源码
+    FROM_SOURCE_CODE = 2;
+    // git仓库
+    FROM_GIT_REPO = 3;
+  }
+  ChaincodeMode mode = 1;
+  Chaincode chaincode = 2;
+}
+
+message DefinitionArgs {
+  string name = 1;
+  string version = 2;
+  int64 sequence = 3;
+  string endorse_plugin = 4;
+  string validate_plugin = 5;
+  bytes validate_params = 6;
+  bool init_required = 7;
+}
+
+message ChaincodeInstallRequest {
+  common.Signer signer = 1;
+  repeated common.Peer peers = 2;
+  ChaincodePackage chaincode = 4;
+}
+
+message ChaincodeApproveRequest {
+  common.Signer signer = 1;
+  common.Peer committer = 2;
+  common.Orderer orderer = 3;
+  string channel_id = 4;
+  DefinitionArgs definition = 5;
+  string package_id = 6;
+}
+
+message ChaincodeCommitRequest {
+  common.Signer signer = 1;
+  repeated common.Peer endorsers = 2;
+  common.Orderer orderer = 3;
+  string channel_id = 4;
+  DefinitionArgs definition = 5;
+}
+
+service ChaincodeStub {
+  rpc InstallChaincode(ChaincodeInstallRequest) returns (common.Response) {}
+  rpc ApproveChaincode(ChaincodeApproveRequest) returns (common.Response) {}
+  rpc CommitChaincode(ChaincodeCommitRequest) returns (common.Response) {}
+}
+
+message ChaincodeArgs {
+  string name = 1;
+  string version = 2;
+  repeated bytes args = 3;
+}
+
+message ContractInvokeRequest {
+  common.Signer signer = 1;
+  repeated common.Peer endorsers = 2;
+  common.Peer committer = 3;
+  common.Orderer orderer = 4;
+  ChaincodeArgs args = 5;
+  string channel_id = 6;
+}
+
+message ContractQueryRequest {
+  common.Signer signer = 1;
+  common.Peer committer = 2;
+  common.Orderer orderer = 3;
+  ChaincodeArgs args = 4;
+  string channel_id = 5;
+}
+
+service ContractStub {
+  rpc Invoke(ContractInvokeRequest) returns (common.Response) {}
+  rpc Query(ContractQueryRequest) returns (common.Response) {}
+}

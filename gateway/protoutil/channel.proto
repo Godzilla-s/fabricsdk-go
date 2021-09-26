@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+import "common.proto";
+
+option go_package = "gateway/protoutil";
+
+package channel;
+
+message Results {
+  repeated common.Response responses = 1;
+}
+
+// 创建通道请求
+message CreateChannelRequest {
+  string channel_id = 1;
+  string consortium_name = 2;
+  common.Orderer orderer = 3;
+  common.Signer  signer = 4;
+  repeated common.Organization members = 5;
+}
+
+// 加入通道请求
+message JoinChannelRequest {
+  string channel_id = 1;
+  common.Signer  signer = 2;
+  common.Orderer orderer = 3;
+  repeated common.Peer peers = 4;
+}
+
+// 更新通道请求
+message UpdateChannelRequest {
+  string channel_id = 1;
+  common.Signer signer = 2;
+  common.Orderer orderer = 3;
+  bytes  update_envelope = 4;
+}
+
+message QueryBlockRequest {
+  string channel_id = 1;
+  common.Signer signer = 2;
+  common.Peer peer = 3;
+  enum Type {
+    By_Hash = 0;
+    By_Number = 1;
+    By_Tx_Id = 2;
+  }
+  Type type = 4;
+  oneof Condition {
+    bytes hash = 5;
+    int64 number = 6;
+    string tx_id = 7;
+  }
+}
+
+message ListChannelsRequest {
+  common.Signer signer = 1;
+  common.Peer peer = 2;
+}
+
+message FetchBlockRequest {
+  common.Signer signer = 1;
+  common.Orderer orderer = 2;
+  int64  height = 3;
+  string channel_id = 4;
+}
+
+message FetchConfigRequest {
+  common.Signer signer = 1;
+  common.Orderer orderer = 2;
+  string channel_id = 3;
+}
+
+message GetChannelInfoRequest {
+  common.Signer signer = 1;
+  common.Peer peer = 2;
+  string channel_id = 3;
+}
+
+// 通道接口服务
+service ChannelStub {
+  // 创建通道
+  rpc CreateChannel (CreateChannelRequest) returns (common.Response) {}
+  // 节点加入通道
+  rpc JoinChannel (JoinChannelRequest) returns (common.Response) {}
+  // 跟新通道
+  rpc UpdateChannel (UpdateChannelRequest) returns (common.Response) {}
+  // 账本中获取区块
+  rpc QueryBlock (QueryBlockRequest) returns (common.Response) {}
+  // 拉取区块
+  rpc FetchBlock (FetchBlockRequest) returns (common.Response) {}
+  // 拉取通道初始区块
+  rpc FetchConfig (FetchConfigRequest) returns (common.Response) {}
+  // 获取
+  rpc ListChannels (ListChannelsRequest) returns (common.Response) {}
+}
+
+

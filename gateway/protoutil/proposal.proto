@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+import "common.proto";
+
+// option go_package = "gateway/protos";
+option go_package = "gateway/protoutil";
+
+package proposal;
+
+enum ProposalType {
+  Unknown_Proposal = 0;
+  Channel_AddPeerOrg = 1; // 通道加入peer组织
+  Channel_RemovePeerOrg = 2; // 通道删除peer组织
+  Channel_ConfigUpdate = 3;  // 通道配置更新
+  Consortium_AddPeerOrg = 4;  // peer组织加入联盟
+  Consortium_RemovePeerOrg = 5; // 联盟移除peer组织
+  Consortium_ConfigUpdate = 6;  // 联盟配置更新
+}
+
+message Proposal {
+  ProposalType type = 1;
+  oneof content {
+    common.Organization new_org = 2;
+    string removed_org_name = 3;
+  }
+  int64 deadline = 4;
+}
+
+message ProposalSignature {
+  bytes proposal_hash = 1;
+  string creator = 2;
+  bytes signature = 3;
+}
+
+message ProposalEnvelope {
+  bytes proposal_id = 1;
+  bytes proposal = 2;
+  ProposalSignature sign = 3;
+  string channel_id = 4;
+}
+
+// 发起提案请求
+message ProposalInitRequest {
+  common.Signer signer = 1;
+  common.Orderer orderer = 2;
+  string channel_id = 3;
+  string consortium_name = 4;
+  Proposal proposal = 5;
+}
+
+message ProposalSignRequest {
+  common.Signer signer = 1;
+  ProposalEnvelope envelope = 2;
+}
+
+message ProposalSubmitRequest {
+  common.Signer signer = 1;
+  common.Orderer orderer = 2;
+  ProposalEnvelope envelope = 3;
+  repeated ProposalSignature sigs = 4;
+}
+
+// 提案服务
+service ProposalStub {
+  // 发起提案
+  rpc Initiate(ProposalInitRequest) returns (ProposalEnvelope) {}
+  // 提案签名
+  rpc Sign(ProposalSignRequest) returns (ProposalSignature) {}
+  // 提交提案
+  rpc Submit(ProposalSubmitRequest) returns (common.Response) {}
+}
