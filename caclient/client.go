@@ -21,8 +21,19 @@ type Client struct {
 	httpCli  *http.Client
 }
 
-func New() *Client {
-	return nil
+type Config struct {
+	Username  string
+	Password  string
+	URL   string
+}
+
+func New(c Config) *Client {
+	cli := &Client{
+		username: c.Username,
+		password: c.Password,
+		url: c.URL,
+	}
+	return cli
 }
 
 func (c *Client) send(req *http.Request, response interface{}) error {
