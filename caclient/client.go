@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/godzilla-s/fabricsdk-go/internal/cryptoutil"
 	"github.com/mitchellh/mapstructure"
-	cfsslapi "github.com/cloudflare/cfssl/api"
 	"github.com/pkg/errors"
 	"io"
 	"io/ioutil"
@@ -50,9 +49,10 @@ func (c *Client) send(req *http.Request, response interface{}) error {
 	if err != nil {
 		return err
 	}
-	var res *cfsslapi.Response
+	//var res *cfsslapi.Response
+	var res *cryptoutil.Response
 	if len(bodyData) > 0 {
-		res = new(cfsslapi.Response)
+		res = new(cryptoutil.Response)
 		err = json.Unmarshal(bodyData, res)
 		if err != nil {
 			return err
@@ -135,6 +135,11 @@ func (c *Client) Issue(req EnrollmentRequest) (KeyStore, error) {
 	signCert, _ := base64.StdEncoding.DecodeString(respNet.Cert)
 	rootCert, _ := base64.StdEncoding.DecodeString(respNet.ServerInfo.CAChain)
 	return keystore{signCert: signCert, rootCert: rootCert, key: key}, nil
+}
+
+func (c *Client) CheckConnect() error {
+	// TODO
+	return nil
 }
 
 func (c *Client) Register(req RegistrationRequest, authorized KeyStore) error {

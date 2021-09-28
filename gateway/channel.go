@@ -5,11 +5,14 @@ import (
 	"github.com/godzilla-s/fabricsdk-go/gateway/protoutil"
 	"github.com/godzilla-s/fabricsdk-go/internal/channel"
 	"github.com/godzilla-s/fabricsdk-go/internal/client/orderer"
+	"github.com/godzilla-s/fabricsdk-go/internal/client/peer"
 	"github.com/godzilla-s/fabricsdk-go/internal/cryptoutil"
+	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
-func CreateChannel(ctx context.Context, req *protoutil.CreateChannelRequest) (*protoutil.Response, error)  {
+// ChannelCreate is interface to create channel in fabric network
+func ChannelCreate(ctx context.Context, req *protoutil.CreateChannelRequest) (*protoutil.Response, error)  {
 	signer, err := createSigner(req.Signer)
 	if err != nil {
 		return nil, errors.WithMessage(err, "create signer")
@@ -45,7 +48,8 @@ func CreateChannel(ctx context.Context, req *protoutil.CreateChannelRequest) (*p
 	return &protoutil.Response{Status: 200}, nil
 }
 
-func JoinChannel(ctx context.Context, req *protoutil.JoinChannelRequest) (*protoutil.Response, error) {
+// ChannelJoin is API for peer to join to channel
+func ChannelJoin(ctx context.Context, req *protoutil.JoinChannelRequest) (*protoutil.Response, error) {
 	signer, err := createSigner(req.Signer)
 	if err != nil {
 		return nil, errors.WithMessage(err, "create signer")
@@ -67,7 +71,8 @@ func JoinChannel(ctx context.Context, req *protoutil.JoinChannelRequest) (*proto
 	return nil, nil
 }
 
-func UpdateChannel(ctx context.Context, req *protoutil.UpdateChannelRequest) (*protoutil.Response, error) {
+// ChannelUpdate is API for update channel config
+func ChannelUpdate(ctx context.Context, req *protoutil.UpdateChannelRequest) (*protoutil.Response, error) {
 	signer, err := createSigner(req.Signer)
 	if err != nil {
 		return nil, err
@@ -85,3 +90,70 @@ func UpdateChannel(ctx context.Context, req *protoutil.UpdateChannelRequest) (*p
 	}
 	return &protoutil.Response{Status: 200}, nil
 }
+
+// ChannelList is API to list channel of peer node
+func ChannelList(ctx context.Context, req *protoutil.ListChannelsRequest) (*protoutil.Response, error) {
+	signer, err := createSigner(req.Signer)
+	if err != nil {
+		return nil, err
+	}
+	pClient, err := peer.New(req.Peer.Url, req.Peer.HostName, req.Peer.TlsRootCert)
+	if err != nil {
+		return nil, err
+	}
+	channels, err := channel.List(signer, pClient)
+	if err != nil {
+		return nil, err
+	}
+	resp := &protoutil.Response{}
+	resp.Payload, _ = proto.Marshal(channels)
+	resp.Status = 200
+	return resp, nil
+}
+
+func FetchBlock(ctx context.Context, req *protoutil.FetchBlockRequest) (*protoutil.Response, error) {
+	// TODO
+	signer, err := createSigner(req.Signer)
+	if err != nil {
+		return nil, err
+	}
+	oClient, err := orderer.New(req.Orderer.Url, req.Orderer.HostName, req.Orderer.TlsRootCert)
+	if err != nil {
+		return nil, err
+	}
+	block, err := channel.FetchBlock(signer, oClient, req.ChannelId, uint64(req.Height))
+	if err != nil {
+		return nil, err
+	}
+
+	blockBytes, err := proto.Marshal(block)
+
+	if err != nil {
+		return nil, err
+	}
+	return &protoutil.Response{Payload: blockBytes, Status: 200}, nil
+}
+
+func FetchConfig(ctx context.Context, req *protoutil.FetchConfigRequest) (*protoutil.Response, error) {
+	signer, err := createSigner(req.Signer)
+	if err != nil {
+		return nil, err
+	}
+	oClient, err := orderer.New(req.Orderer.Url, req.Orderer.HostName, req.Orderer.TlsRootCert)
+	if err != nil {
+		return nil, err
+	}
+	config, err := channel.FetchConfig(signer, oClient, req.ChannelId)
+	if err != nil {
+		return nil, err
+	}
+
+	resp := &protoutil.Response{}
+	resp.Payload, err = proto.Marshal(config)
+	if err != nil {
+		return nil, err
+	}
+	resp.Status = 200
+	return resp, nil
+}
+

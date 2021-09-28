@@ -1,6 +1,8 @@
 package caclient
 
-import "github.com/cloudflare/cfssl/signer"
+import (
+	"github.com/godzilla-s/fabricsdk-go/internal/cryptoutil"
+)
 
 type IdentityType string
 
@@ -35,7 +37,7 @@ type AttributeRequest struct {
 }
 
 type EnrollmentRequestNet struct {
-	signer.SignRequest
+	cryptoutil.SignRequest
 	CAName   string
 	AttrReqs []*AttributeRequest `json:"attr_reqs,omitempty"`
 }

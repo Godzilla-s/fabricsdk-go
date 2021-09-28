@@ -110,7 +110,6 @@ func GetInfo(signer cryptoutil.Signer, endorser pb.EndorserClient, channelID str
 	if resp.Response == nil || resp.Response.Status != 200 {
 		return nil, errors.Errorf("received bad response, status %d: %s", resp.Response.Status, resp.Response.Message)
 	}
-
 	binfo := cb.BlockchainInfo{}
 	err = proto.Unmarshal(resp.Response.Payload, &binfo)
 	if err != nil {
@@ -120,12 +119,12 @@ func GetInfo(signer cryptoutil.Signer, endorser pb.EndorserClient, channelID str
 }
 
 // FetchBlock 获取区块
-func FetchBlock(signer cryptoutil.Signer, ordererCli orderer.Client, channelID string, blockNum uint64) (*cb.Block, error) {
-	if ordererCli == nil {
+func FetchBlock(signer cryptoutil.Signer, oClient orderer.Client, channelID string, blockNum uint64) (*cb.Block, error) {
+	if oClient == nil {
 		return nil, fmt.Errorf("nil orderer client")
 	}
 
-	deliverCli, err := ordererCli.GetDeliverClient(signer, channelID, true)
+	deliverCli, err := oClient.GetDeliverClient(signer, channelID, true)
 	if err != nil {
 		return nil, err
 	}
