@@ -72,9 +72,9 @@ func pemToPrivateKey(raw []byte, pwd []byte) (interface{}, error) {
 		if len(pwd) == 0 {
 			return nil, fmt.Errorf("must have password")
 		}
-		return enCryptoPEMToPrivateKey(raw, pwd)
+		return encryptPEMToPrivateKey(raw, pwd)
 	}
-
+	fmt.Println("=======================")
 	derBytes := b.Bytes
 	if k, err := x509.ParsePKCS1PrivateKey(derBytes); err == nil {
 		return k, nil
@@ -91,13 +91,13 @@ func pemToPrivateKey(raw []byte, pwd []byte) (interface{}, error) {
 }
 
 
-func enCryptoPEMToPrivateKey(raw []byte, pwd []byte) (interface{}, error) {
+func encryptPEMToPrivateKey(raw []byte, pwd []byte) (interface{}, error) {
 	if len(raw) == 0 {
-		return nil, errors.New("Invalid PEM. It must be different from nil.")
+		return nil, errors.New("invalid PEM. it must be different from nil.")
 	}
 	block, _ := pem.Decode(raw)
 	if block == nil {
-		return nil, fmt.Errorf("Failed decoding PEM. Block must be different from nil. [% x]", raw)
+		return nil, fmt.Errorf("failed decoding PEM. block must be different from nil. [% x]", raw)
 	}
 	if x509.IsEncryptedPEMBlock(block) {
 		if len(pwd) == 0 {

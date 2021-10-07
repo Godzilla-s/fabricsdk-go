@@ -10,6 +10,11 @@ import (
 	"github.com/hyperledger/fabric-protos-go/peer"
 )
 
+const (
+	RESPONSE_OK = 200
+	RESPONSE_FAIL = 500
+)
+
 func createSigner(signer *protoutil.Signer) (cryptoutil.Signer, error) {
 	cs, err := cryptoutil.GetMyCryptoSuiteFromBytes(signer.Key, signer.Cert, signer.MspId)
 	if err != nil {

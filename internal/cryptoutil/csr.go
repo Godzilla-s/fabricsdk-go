@@ -59,7 +59,7 @@ func GenerateKey(req *CSRInfo, id string) ([]byte, Key, error) {
 	//cr.CN = id
 	certPEM, err := generateCSR(signer, cr)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Generate: %v", err)
+		return nil, nil, fmt.Errorf("generate error: %v", err)
 	}
 	return certPEM, key, nil
 }

@@ -7,10 +7,10 @@ import (
 type IdentityType string
 
 const (
-	ROLE_ID_PEER    IdentityType = "peer"
-	ROLE_ID_ORDERER              = "orderer"
-	ROLE_ID_USER                 = "client"
-	ROLE_ID_ADMIN                = "admin"
+	ROLE_PEER    IdentityType = "peer"
+	ROLE_ORDERER  = "orderer"
+	ROLE_CLIENT = "client"
+	ROLE_ADMIN  = "admin"
 )
 
 func (id IdentityType) String() string {
@@ -24,7 +24,6 @@ type EnrollmentRequest struct {
 	CAName  string
 	Profile string
 	Label   string
-	// CSR     *cryptoutil.CSRInfo
 	Type    string
 	AttrReq  []*AttributeRequest
 	CN      string
@@ -57,9 +56,9 @@ type CAInfoResponseNet struct {
 	CAName string
 	// Base64 encoding of PEM-encoded certificate chain
 	CAChain string
-	// Base64 encoding of Idemix issuer public key
+	// Base64 encoding of Idemix issuer public privKey
 	IssuerPublicKey string
-	// Base64 encoding of PEM-encoded Idemix issuer revocation public key
+	// Base64 encoding of PEM-encoded Idemix issuer revocation public privKey
 	IssuerRevocationPublicKey string
 	// Version of the server
 	Version string
@@ -100,13 +99,13 @@ func NewRegisterRequest(name, secret string, idtype IdentityType) RegistrationRe
 	}
 
 	switch idtype {
-	case ROLE_ID_PEER:
+	case ROLE_PEER:
 		req.Attributes = DefaultPeerAttr
-	case ROLE_ID_ORDERER:
+	case ROLE_ORDERER:
 		req.Attributes = DefaultOrdererAttr
-	case ROLE_ID_USER:
+	case ROLE_CLIENT:
 		req.Attributes = DefaultClientAttr
-	case ROLE_ID_ADMIN:
+	case ROLE_ADMIN:
 		req.Attributes = DefaultAdminAttr
 	}
 	return req

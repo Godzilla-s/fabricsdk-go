@@ -96,8 +96,8 @@ func (c *Client) newIdentity(key KeyStore) *identity {
 	}
 }
 
-//Issue 下发证书
-func (c *Client) Issue(req EnrollmentRequest) (KeyStore, error) {
+//Enroll 下发证书
+func (c *Client) Enroll(req EnrollmentRequest) (KeyStore, error) {
 	csr := &cryptoutil.CSRInfo{
 		CN: req.CN,
 		Hosts: req.Hosts,
@@ -134,7 +134,7 @@ func (c *Client) Issue(req EnrollmentRequest) (KeyStore, error) {
 
 	signCert, _ := base64.StdEncoding.DecodeString(respNet.Cert)
 	rootCert, _ := base64.StdEncoding.DecodeString(respNet.ServerInfo.CAChain)
-	return keystore{signCert: signCert, rootCert: rootCert, key: key}, nil
+	return keystore{signCert: signCert, rootCert: rootCert, privKey: key}, nil
 }
 
 func (c *Client) CheckConnect() error {
@@ -150,7 +150,7 @@ func (c *Client) Register(req RegistrationRequest, authorized KeyStore) error {
 		if c.username == "" || c.password == "" {
 			return fmt.Errorf("name or secret of login CA server is missing")
 		}
-		cakey, err := c.Issue(EnrollmentRequest{Name: c.username, Secret: c.password})
+		cakey, err := c.Enroll(EnrollmentRequest{Name: c.username, Secret: c.password})
 		if err != nil {
 			return err
 		}
@@ -172,8 +172,4 @@ func (c *Client) Register(req RegistrationRequest, authorized KeyStore) error {
 	}
 	_, err = id.addIdentity(req)
 	return err
-}
-
-func (c *Client) RegisterAndIssue(req RegistrationRequest, authorized KeyStore) {
-
 }
