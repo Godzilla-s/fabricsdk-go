@@ -12,7 +12,7 @@ const (
 	TEST_FABRIC_CA_URL = "http://192.168.1.106:7054"
 )
 
-func TestClient_New(t *testing.T) {
+func newClient(t *testing.T) *Client {
 	os.Setenv("TEST_FABRIC_CA_URL", TEST_FABRIC_CA_URL)
 	url := os.Getenv("TEST_FABRIC_CA_URL")
 	c := New(Config{
@@ -20,6 +20,11 @@ func TestClient_New(t *testing.T) {
 		Password: "123456",
 		URL: url,
 	})
+	return c
+}
+
+func TestClient_New(t *testing.T) {
+	c := newClient(t)
 
 	key, err := c.Enroll(EnrollmentRequest{Name: "admin", Secret: "123456"})
 	if err != nil {
@@ -35,14 +40,7 @@ func TestClient_New(t *testing.T) {
 }
 
 func TestClient_Register(t *testing.T) {
-	os.Setenv("TEST_FABRIC_CA_URL", TEST_FABRIC_CA_URL)
-	url := os.Getenv("TEST_FABRIC_CA_URL")
-	c := New(Config{
-		Username: "admin",
-		Password: "123456",
-		URL: url,
-	})
-
+	c := newClient(t)
 	req := NewRegisterRequest("test1", "123456", ROLE_ADMIN)
 	err := c.Register(req, nil)
 	if err != nil {

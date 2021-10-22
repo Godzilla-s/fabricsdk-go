@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"context"
+	"fmt"
 	"github.com/godzilla-s/fabricsdk-go/gateway/protoutil"
 	"github.com/godzilla-s/fabricsdk-go/internal/channel"
 	"github.com/godzilla-s/fabricsdk-go/internal/client/orderer"
@@ -62,13 +63,17 @@ func ChannelJoin(ctx context.Context, req *protoutil.JoinChannelRequest) (*proto
 	if err != nil {
 		return nil, err
 	}
-	responses, err := channel.Join(signer, pClients, oClient, req.ChannelId)
+
+	rsp, err := channel.Join2(signer, pClients[0], oClient, req.ChannelId)
 	if err != nil {
 		return nil, errors.WithMessage(err, "join peer")
 	}
 
-	_ = responses
-	return nil, nil
+	return &protoutil.Response{
+		Status: rsp.Status,
+		Message: rsp.Message,
+		Payload: rsp.Payload,
+	}, nil
 }
 
 // ChannelUpdate is API for update channel config
@@ -101,12 +106,20 @@ func ChannelList(ctx context.Context, req *protoutil.ListChannelsRequest) (*prot
 	if err != nil {
 		return nil, err
 	}
-	channels, err := channel.List(signer, pClient)
+	channelRsp, err := channel.List(signer, pClient)
 	if err != nil {
 		return nil, err
 	}
 	resp := &protoutil.Response{}
-	resp.Payload, _ = proto.Marshal(channels)
+	var channels []string
+
+	for _, c := range channelRsp.Channels {
+		channels = append(channels, c.ChannelId)
+	}
+
+	fmt.Println("channel:", channels)
+
+	//resp.Payload, _ = proto.Marshal(channels)
 	resp.Status = 200
 	return resp, nil
 }

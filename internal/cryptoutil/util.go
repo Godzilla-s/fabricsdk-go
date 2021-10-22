@@ -74,7 +74,6 @@ func pemToPrivateKey(raw []byte, pwd []byte) (interface{}, error) {
 		}
 		return encryptPEMToPrivateKey(raw, pwd)
 	}
-	fmt.Println("=======================")
 	derBytes := b.Bytes
 	if k, err := x509.ParsePKCS1PrivateKey(derBytes); err == nil {
 		return k, nil

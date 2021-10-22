@@ -120,6 +120,38 @@ func Update(signer cryptoutil.Signer, ch ChannelEnvelope, oClient orderer.Client
 	return nil
 }
 
+func Join2(signer cryptoutil.Signer, pClient peer.Client, oClient orderer.Client, channelID string) (*pb.Response, error) {
+	ds, err := oClient.GetDeliverClient(signer, channelID, true)
+	if err != nil {
+		return nil, err
+	}
+
+	block, err := ds.GetSpecifiedBlock(0)
+	if err != nil {
+		return nil, fmt.Errorf("fail to get config block from channel %s with error: %v", channelID, err)
+	}
+
+	blockBytes, err := proto.Marshal(block)
+	if err != nil {
+		return nil, err
+	}
+
+	endorser, err := pClient.GetEndorser()
+	if err != nil {
+		return nil, err
+	}
+	signedProp, err := createJoinChannelProposal(signer, blockBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	r, err := endorser.ProcessProposal(context.Background(), signedProp)
+	if err != nil {
+		return nil, err
+	}
+	return r.Response, nil
+}
+
 func Join(signer cryptoutil.Signer, pClients []peer.Client, oClient orderer.Client, channelID string) ([]*pb.Response, error) {
 	ds, err := oClient.GetDeliverClient(signer, channelID, true)
 	if err != nil {

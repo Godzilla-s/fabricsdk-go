@@ -5,13 +5,17 @@ import (
 	"github.com/godzilla-s/fabricsdk-go/internal/cryptoutil"
 	"github.com/godzilla-s/fabricsdk-go/internal/utils"
 	"github.com/hyperledger/fabric-config/configtx"
+	"github.com/hyperledger/fabric-config/configtx/orderer"
 	cb "github.com/hyperledger/fabric-protos-go/common"
 	"github.com/pkg/errors"
 	"io/ioutil"
+	"time"
 )
 
 const (
-	FABRIC_VERSION_2_0 = "2_0"
+	FABRIC_VERSION_2_0 = "V2_0"
+	ORDERER_CONSEN
+
 )
 type ChannelEnvelope interface {
 	CreateEnvelope() (*cb.Envelope, error)
@@ -98,7 +102,73 @@ func CreateApplicationChannel(channelID, consortiumName string, orgs []Organizat
 		Consortium:  consortiumName,
 		Application: app,
 	}
+
 	return NewApplicationChannel(appChannel, channelID)
+}
+
+func CreateSystemGenesisBlock(ordererOrg Organization, peerOrgs []Organization, consortiumName, sysChannelID string) (*cb.Block, error) {
+
+	orderer := configtx.Orderer{
+		OrdererType: orderer.ConsensusTypeEtcdRaft,
+		BatchTimeout: 2*time.Second,
+		Capabilities: []string{"V2_0"},
+		BatchSize: orderer.BatchSize{
+			MaxMessageCount: 10,
+			AbsoluteMaxBytes: 99*1024*1024,
+			PreferredMaxBytes: 512*1024,
+		},
+		Policies: map[string]configtx.Policy{
+			configtx.ReadersPolicyKey: {
+				Type: configtx.ImplicitMetaPolicyType,
+				Rule: "ANY Readers",
+			},
+			configtx.WritersPolicyKey: {
+				Type: configtx.ImplicitMetaPolicyType,
+				Rule: "ANY Writers",
+			},
+			configtx.AdminsPolicyKey: {
+				Type: configtx.ImplicitMetaPolicyType,
+				Rule: "MAJORITY Admins",
+			},
+			configtx.BlockValidationPolicyKey: {
+				Type: configtx.ImplicitMetaPolicyType,
+				Rule: "ANY Writers",
+			},
+		},
+		Organizations: []configtx.Organization{},
+		State: orderer.ConsensusStateNormal,
+	}
+
+	consortium := configtx.Consortium{
+		Name: consortiumName,
+	}
+	for _, peerOrg := range peerOrgs {
+		org, err := peerOrg.CreateOrganization()
+		if err != nil {
+			return nil, err
+		}
+		consortium.Organizations = append(consortium.Organizations, org)
+	}
+	channelOrg := configtx.Channel{
+		Orderer: orderer,
+		Capabilities: []string{"V2_0"},
+		Policies: map[string]configtx.Policy{
+			configtx.ReadersPolicyKey: {
+				Type: configtx.ImplicitMetaPolicyType,
+				Rule: "ANY Readers",
+			},
+			configtx.WritersPolicyKey: {
+				Type: configtx.ImplicitMetaPolicyType,
+				Rule: "ANY Writers",
+			},
+			configtx.AdminsPolicyKey: {
+				Type: configtx.ImplicitMetaPolicyType,
+				Rule: "MAJORITY Admins",
+			},
+		},
+		Consortiums: []configtx.Consortium{consortium},
+	}
+	return configtx.NewSystemChannelGenesisBlock(channelOrg, sysChannelID)
 }
 
 // UpdateEnvelope

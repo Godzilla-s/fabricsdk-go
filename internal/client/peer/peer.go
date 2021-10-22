@@ -90,7 +90,7 @@ type peerClient struct {
 func (pc *peerClient) GetEndorser() (pb.EndorserClient, error) {
 	conn, err := pc.commonClient.NewConnection(pc.address, comm.ServerNameOverride(pc.sn))
 	if err != nil {
-		return nil, errors.WithMessage(err, fmt.Sprintf("endorser client failed to connect to %s", pc.address))
+		return nil, errors.WithMessage(err, fmt.Sprintf("endorser client failed to connect to %s, %s", pc.address, pc.sn))
 	}
 
 	return pb.NewEndorserClient(conn), nil
