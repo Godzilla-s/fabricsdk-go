@@ -64,8 +64,20 @@ message ChaincodeCommitRequest {
   DefinitionArgs definition = 5;
 }
 
+message ChaincodeInstallResponse {
+  int32 status = 1;
+  string label = 2;
+  string package_id = 3;
+  message Result {
+    string id = 1;
+    int32 status = 2;
+    string message = 3;
+  }
+  repeated Result results = 4;
+}
+
 service ChaincodeStub {
-  rpc InstallChaincode(ChaincodeInstallRequest) returns (common.Response) {}
+  rpc InstallChaincode(ChaincodeInstallRequest) returns (ChaincodeInstallResponse) {}
   rpc ApproveChaincode(ChaincodeApproveRequest) returns (common.Response) {}
   rpc CommitChaincode(ChaincodeCommitRequest) returns (common.Response) {}
 }

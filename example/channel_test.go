@@ -411,9 +411,4 @@ func TestChannel_Operation(t *testing.T) {
 		}
 	}
 
-	req := &protoutil.UpdateChannelRequest{
-
-	}
-
-	gateway.ChannelUpdate(context.Background(), req )
 }

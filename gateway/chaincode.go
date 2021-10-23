@@ -2,20 +2,19 @@ package gateway
 
 import (
 	"context"
-	"encoding/json"
 	"github.com/godzilla-s/fabricsdk-go/gateway/protoutil"
 	"github.com/godzilla-s/fabricsdk-go/internal/chaincode"
 	"github.com/godzilla-s/fabricsdk-go/internal/chaincode/contract"
 	"github.com/pkg/errors"
 )
 
-func ChaincodeInstall(ctx context.Context, req *protoutil.ChaincodeInstallRequest) (*protoutil.Response, error) {
+func ChaincodeInstall(ctx context.Context, req *protoutil.ChaincodeInstallRequest) (*protoutil.ChaincodeInstallResponse, error) {
 	signer, err := createSigner(req.Signer)
 	if err != nil {
 		return nil, err
 	}
 
-	peerClients, err := createPeerClients(req.Peers)
+	pClients, err := createPeerClients(req.Peers)
 	if err != nil {
 		return nil, err
 	}
@@ -36,16 +35,7 @@ func ChaincodeInstall(ctx context.Context, req *protoutil.ChaincodeInstallReques
 		chaincodeInstaller = chaincode.GetChaincodeInstallerFromGitRepo("")
 	}
 
-	resp, err := chaincode.Install(signer, peerClients, chaincodeInstaller)
-	if err != nil {
-		return nil, err
-	}
-	data, err := json.Marshal(resp)
-	if err != nil {
-		return nil, err
-	}
-
-	return &protoutil.Response{Status: 200, Payload: data}, nil
+	return chaincode.Install(signer, pClients, chaincodeInstaller)
 }
 
 // ApproveChaincode 授信链码
